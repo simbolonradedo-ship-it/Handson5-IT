@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Product</title>
+</head>
+<body>
+
+<h1>Daftar Produk</h1>
+
+<table border="1" cellpadding="8">
+    <tr>
+        <th>Nama Produk</th>
+        <th>Harga</th>
+    </tr>
+
+    <tr>
+        <td th:text="${product1}"></td>
+        <td th:text="${price1}"></td>
+    </tr>
+
+    <tr>
+        <td th:text="${product2}"></td>
+        <td th:text="${price2}"></td>
+    </tr>
+
+    <tr>
+        <td th:text="${product3}"></td>
+        <td th:text="${price3}"></td>
+    </tr>
+</table>
+
+<br>
+
+<a th:href="@{/}">Home</a> |
+<a th:href="@{/about}">About</a>
+
+</body>
+</html>
