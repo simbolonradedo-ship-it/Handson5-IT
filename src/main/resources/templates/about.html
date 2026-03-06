@@ -1,48 +1,62 @@
 <!DOCTYPE html>
-<!-- Perlu ditambahkan -->
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title th:text="${title}">About</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { primary: { DEFAULT: '#f43f5e' } }
+                }
+            }
+        }
+    </script>
 </head>
-<body>
-<h1>InI adalah about page</h1>
-<p th:text="${Texthello}"></pth:text></p>
+<body class="flex min-h-screen flex-col bg-zinc-950 text-zinc-100">
 
-<table border="1" cellpadding="8">
-    <tr>
-        <td><b>Tempat, Tanggal Lahir</b></td>
-        <td th:text="${tempatTanggalLahir}"></td>
-    </tr>
+<div th:replace="~{fragments/layout :: navbar}"></div>
 
-    <tr>
-        <td><b>Alamat</b></td>
-        <td th:text="${alamat}"></td>
-    </tr>
+<main class="flex-1">
+    <section class="mx-auto max-w-3xl px-4 py-12">
+        <div class="relative overflow-hidden rounded-2xl border border-zinc-800/80 bg-zinc-900/50 p-8 shadow-xl">
+            <div class="pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full bg-rose-500/20 blur-3xl"></div>
+            <div class="pointer-events-none absolute bottom-0 left-0 h-40 w-40 rounded-full bg-teal-500/10 blur-3xl"></div>
 
-    <tr>
-        <td><b>Email</b></td>
-        <td th:text="${email}"></td>
-    </tr>
+            <div class="relative space-y-6">
+                <h1 class="text-3xl font-bold tracking-tight text-zinc-50" th:text="${appName}">Spring MVC Lab</h1>
+                <p class="text-sm text-zinc-400">
+                    Versi <span class="font-semibold text-rose-300" th:text="${version}">1.0</span>
+                    · Dikembangkan oleh <span class="font-semibold text-zinc-100" th:text="${author}">Author</span>
+                </p>
 
-    <tr>
-        <td><b>No. Telepon</b></td>
-        <td th:text="${noTelepon}"></td>
-    </tr>
+                <div class="rounded-xl border border-zinc-800/80 bg-zinc-950/60 p-5">
+                    <h2 class="text-xs font-bold uppercase tracking-wider text-zinc-500">Teknologi yang Digunakan</h2>
+                    <ul class="mt-4 grid gap-3 text-sm text-zinc-300 sm:grid-cols-2">
+                        <li th:each="tech : ${technologies}" class="flex items-center gap-2">
+                            <span class="h-2 w-2 rounded-full bg-rose-400"></span>
+                            <span th:text="${tech}">Technology</span>
+                        </li>
+                    </ul>
+                </div>
 
-    <tr>
-        <td><b>Pendidikan</b></td>
-        <td th:text="${pendidikan}"></td>
-    </tr>
+                <p class="text-sm text-zinc-500">
+                    Halaman ini menunjukkan bagaimana informasi statis (author, versi, dan teknologi)
+                    dikirim dari Controller ke View menggunakan <span class="font-semibold text-zinc-300">Model</span>,
+                    lalu dirender dengan Tailwind CSS agar tampilan tetap modern dan responsif.
+                </p>
 
-    <tr>
-        <td><b>Hobi</b></td>
-        <td th:text="${hobi}"></td>
-    </tr>
-</table>
+                <div class="pt-4">
+                    <a th:href="@{/}" class="inline-flex items-center gap-2 rounded-xl border border-zinc-700 bg-zinc-900/80 px-4 py-2.5 text-sm font-medium text-zinc-300 transition hover:border-rose-500/50 hover:bg-zinc-900 hover:text-rose-300">← Kembali ke Beranda</a>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
 
-<a th:href="@{/}">Home</a>
-<a th:href="@{/Product}">Produk</a>
+<div th:replace="~{fragments/layout :: footer}"></div>
 
 </body>
 </html>

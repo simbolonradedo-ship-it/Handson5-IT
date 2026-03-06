@@ -4,19 +4,23 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.util.List;
+
 @Controller
 public class AboutController {
+
     @GetMapping("/about")
-    public String about(Model model){
-
-        model.addAttribute("textHello", "Hello Rifan Radedo from about page");
-        model.addAttribute("tempatTanggalLahir", "Medan, 27 Juni 2007");
-        model.addAttribute("alamat", "Ramunia Indonesia");
-        model.addAttribute("email", "2481043@unai.edu");
-        model.addAttribute("noTelepon", "083851525240");
-        model.addAttribute("pendidikan", "Kuliah");
-        model.addAttribute("hobi", "Bermain Bola");
-
+    public String about(Model model) {
+        model.addAttribute("appName", "Spring MVC Lab");
+        model.addAttribute("version", "1.0");
+        model.addAttribute("author", "Rifan Radedo");
+        model.addAttribute("technologies", List.of(
+                "Spring Boot",
+                "Thymeleaf",
+                "Tailwind CSS",
+                "Java"
+        ));
+        model.addAttribute("title", "About");
         return "about";
     }
 }

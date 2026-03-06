@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<nav th:fragment="navbar"
+     class="sticky top-0 z-30 border-b border-rose-900/40 bg-zinc-950/95 backdrop-blur-xl">
+    <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
+        <a th:href="@{/}" class="group flex items-center gap-3">
+            <span class="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-rose-500 to-rose-700 text-xs font-bold text-white shadow-lg shadow-rose-500/25 transition group-hover:shadow-rose-500/40">
+                MVC
+            </span>
+            <span class="text-sm font-bold tracking-tight text-zinc-100 md:text-base">Spring MVC Lab</span>
+        </a>
+        <div class="flex flex-wrap items-center gap-1 rounded-2xl border border-zinc-800/80 bg-zinc-900/50 p-1">
+            <a th:href="@{/}" class="rounded-xl px-3 py-2 text-xs font-medium text-zinc-300 transition hover:bg-rose-500/20 hover:text-rose-300 md:px-4">Home</a>
+            <a th:href="@{/products}" class="rounded-xl px-3 py-2 text-xs font-medium text-zinc-300 transition hover:bg-rose-500/20 hover:text-rose-300 md:px-4">Produk</a>
+            <a th:href="@{/products/categories}" class="rounded-xl px-3 py-2 text-xs font-medium text-zinc-300 transition hover:bg-rose-500/20 hover:text-rose-300 md:px-4">Kategori</a>
+            <a th:href="@{/about}" class="rounded-xl px-3 py-2 text-xs font-medium text-zinc-300 transition hover:bg-rose-500/20 hover:text-rose-300 md:px-4">About</a>
+            <a th:href="@{/statistics}" class="rounded-xl px-3 py-2 text-xs font-medium text-zinc-300 transition hover:bg-rose-500/20 hover:text-rose-300 md:px-4">Statistik</a>
+        </div>
+    </div>
+</nav>
+
+<footer th:fragment="footer" class="mt-auto border-t border-zinc-800/80 bg-zinc-950/90">
+    <div class="mx-auto max-w-6xl px-4 py-8">
+        <div class="flex flex-col items-center justify-between gap-4 md:flex-row">
+            <p class="text-xs text-zinc-500 md:text-sm">Spring MVC Lab &copy; 2026 · WEB II - 2025 Week 4</p>
+            <div class="flex items-center gap-2 text-xs text-zinc-500">
+                <span class="rounded-lg bg-zinc-800/60 px-2 py-1 font-medium text-zinc-400">Tailwind CSS</span>
+                <span class="rounded-lg bg-zinc-800/60 px-2 py-1 font-medium text-zinc-400">Thymeleaf</span>
+            </div>
+        </div>
+    </div>
+</footer>
+
+</html>

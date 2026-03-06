@@ -1,14 +1,102 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Home</title>
+    <title th:text="${title}">Home</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { primary: { DEFAULT: '#f43f5e' } }
+                }
+            }
+        }
+    </script>
 </head>
-<body>
-<h1>Ini Adalah Home page</h1>
+<body class="flex min-h-screen flex-col bg-zinc-950 text-zinc-100">
 
-<a th:href="@{/Products}">Produk</a>
-<a th:href="@{/about}">About</a>
+<div th:replace="~{fragments/layout :: navbar}"></div>
+
+<main class="relative flex-1 overflow-hidden">
+    <div class="pointer-events-none absolute inset-0">
+        <div class="absolute -left-32 -top-24 h-96 w-96 rounded-full bg-rose-500/15 blur-[100px]"></div>
+        <div class="absolute bottom-0 right-0 h-80 w-80 rounded-full bg-teal-500/10 blur-[80px]"></div>
+    </div>
+
+    <section class="relative mx-auto max-w-6xl px-4 py-12 md:py-20">
+        <div class="grid gap-12 lg:grid-cols-5 lg:gap-16">
+            <div class="lg:col-span-3 space-y-8">
+                <div class="inline-flex items-center gap-2 rounded-full border border-rose-500/30 bg-rose-500/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-rose-300">
+                    <span class="h-2 w-2 rounded-full bg-rose-400 animate-pulse"></span>
+                    WEB II - 2025 · Week 4 · MVC Pattern
+                </div>
+                <h1 class="text-4xl font-bold tracking-tight text-zinc-50 sm:text-5xl lg:text-6xl" th:text="${title}">Spring MVC Lab</h1>
+                <p class="max-w-lg text-base leading-relaxed text-zinc-400" th:text="${description}">Latihan Week 4 - MVC Pattern &amp; Controller Layer</p>
+
+                <div class="flex flex-wrap items-center gap-4">
+                    <a th:href="@{/products}" class="group inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-rose-500 to-rose-600 px-6 py-3 text-sm font-semibold text-white shadow-xl shadow-rose-500/30 transition hover:from-rose-400 hover:to-rose-500 hover:shadow-rose-500/40">
+                        Jelajahi Semua Produk
+                        <span class="transition group-hover:translate-x-1">→</span>
+                    </a>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="rounded-lg border border-zinc-700/80 bg-zinc-900/60 px-3 py-1.5 text-xs text-zinc-400">Spring Boot · Thymeleaf</span>
+                        <span class="rounded-lg border border-rose-500/30 bg-rose-500/10 px-3 py-1.5 text-xs text-rose-300">Tailwind CSS</span>
+                    </div>
+                </div>
+
+                <div class="pt-4">
+                    <h2 class="mb-3 text-sm font-semibold uppercase tracking-wider text-zinc-500">Cepat pilih kategori</h2>
+                    <div class="flex flex-wrap gap-3">
+                        <a th:href="@{/products/category/Elektronik}" class="inline-flex items-center gap-2 rounded-xl border border-rose-500/30 bg-zinc-900/60 px-4 py-2.5 text-sm font-medium text-rose-300 transition hover:border-rose-400 hover:bg-zinc-900">
+                            <span class="h-2 w-2 rounded-full bg-rose-400"></span> Elektronik
+                        </a>
+                        <a th:href="@{/products/category/Buku}" class="inline-flex items-center gap-2 rounded-xl border border-teal-500/30 bg-zinc-900/60 px-4 py-2.5 text-sm font-medium text-teal-300 transition hover:border-teal-400 hover:bg-zinc-900">
+                            <span class="h-2 w-2 rounded-full bg-teal-400"></span> Buku
+                        </a>
+                        <a th:href="@{/products/category/Makanan}" class="inline-flex items-center gap-2 rounded-xl border border-amber-500/30 bg-zinc-900/60 px-4 py-2.5 text-sm font-medium text-amber-300 transition hover:border-amber-400 hover:bg-zinc-900">
+                            <span class="h-2 w-2 rounded-full bg-amber-400"></span> Makanan
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-2">
+                <div class="rounded-2xl border border-zinc-800/80 bg-zinc-900/40 p-6 shadow-2xl backdrop-blur-sm">
+                    <div class="mb-5 flex items-center justify-between">
+                        <span class="text-xs font-semibold uppercase tracking-wider text-zinc-500">Quick Overview</span>
+                        <span class="rounded-lg bg-teal-500/20 px-2.5 py-1 text-[10px] font-semibold text-teal-300">Ready</span>
+                    </div>
+                    <div class="grid grid-cols-2 gap-3">
+                        <a th:href="@{/products}" class="group rounded-xl border border-rose-500/20 bg-rose-500/5 p-4 transition hover:border-rose-500/40 hover:bg-rose-500/10">
+                            <p class="text-[10px] font-semibold uppercase tracking-wider text-zinc-500">Endpoint</p>
+                            <p class="mt-1 font-bold text-zinc-100">Products</p>
+                            <p class="mt-1 text-xs text-zinc-400">Lihat semua produk &amp; filter kategori.</p>
+                        </a>
+                        <a th:href="@{/statistics}" class="group rounded-xl border border-violet-500/20 bg-violet-500/5 p-4 transition hover:border-violet-500/40 hover:bg-violet-500/10">
+                            <p class="text-[10px] font-semibold uppercase tracking-wider text-zinc-500">Insight</p>
+                            <p class="mt-1 font-bold text-zinc-100">Statistics</p>
+                            <p class="mt-1 text-xs text-zinc-400">Statistik harga, stok rendah, dan ringkasan.</p>
+                        </a>
+                        <a th:href="@{/about}" class="group rounded-xl border border-teal-500/20 bg-teal-500/5 p-4 transition hover:border-teal-500/40 hover:bg-teal-500/10">
+                            <p class="text-[10px] font-semibold uppercase tracking-wider text-zinc-500">Info Lab</p>
+                            <p class="mt-1 font-bold text-zinc-100">About</p>
+                            <p class="mt-1 text-xs text-zinc-400">Detail author &amp; teknologi yang digunakan.</p>
+                        </a>
+                        <a th:href="@{/greet}" class="group rounded-xl border border-amber-500/20 bg-amber-500/5 p-4 transition hover:border-amber-500/40 hover:bg-amber-500/10">
+                            <p class="text-[10px] font-semibold uppercase tracking-wider text-zinc-500">Latihan</p>
+                            <p class="mt-1 font-bold text-zinc-100">Greeting Demo</p>
+                            <p class="mt-1 text-xs text-zinc-400">Eksperimen RequestParam &amp; PathVariable.</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<div th:replace="~{fragments/layout :: footer}"></div>
 
 </body>
 </html>

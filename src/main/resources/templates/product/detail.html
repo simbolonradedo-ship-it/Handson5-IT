@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${title}">Detail Produk</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { primary: { DEFAULT: '#f43f5e' } }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="flex min-h-screen flex-col bg-zinc-950 text-zinc-100">
+
+<div th:replace="~{fragments/layout :: navbar}"></div>
+
+<main class="flex-1">
+    <section class="mx-auto max-w-4xl px-4 py-10">
+        <div th:if="${product != null}">
+            <nav class="text-xs text-zinc-500" aria-label="breadcrumb">
+                <ol class="flex flex-wrap items-center gap-1">
+                    <li><a th:href="@{/}" class="rounded-lg px-2 py-1 transition hover:bg-zinc-800 hover:text-zinc-200">Home</a></li>
+                    <li class="text-zinc-600">/</li>
+                    <li><a th:href="@{/products}" class="rounded-lg px-2 py-1 transition hover:bg-zinc-800 hover:text-zinc-200">Produk</a></li>
+                    <li class="text-zinc-600">/</li>
+                    <li class="rounded-lg bg-zinc-900 px-2 py-1 text-zinc-200" th:text="${product.name}">Nama</li>
+                </ol>
+            </nav>
+
+            <div class="mt-6 flex flex-col gap-8 md:flex-row md:items-start">
+                <div class="flex-1 space-y-4">
+                    <h1 class="text-3xl font-bold tracking-tight text-zinc-50" th:text="${product.name}">Nama Produk</h1>
+                    <div class="inline-flex items-center gap-2 rounded-xl border border-zinc-700 bg-zinc-900/70 px-4 py-2 text-sm text-zinc-300">
+                        <span class="h-2 w-2 rounded-full bg-teal-400"></span>
+                        <span>Kategori:</span>
+                        <a th:href="@{/products/category/{cat}(cat=${product.category})}" th:text="${product.category}"
+                           class="font-semibold text-teal-300 hover:text-teal-200">Kategori</a>
+                    </div>
+                    <p class="text-sm text-zinc-400">
+                        Detail singkat produk untuk latihan Spring MVC &amp; Thymeleaf. Di sini kamu bisa melihat bagaimana data dari Service di-inject ke Controller lalu dirender ke View dengan Tailwind CSS.
+                    </p>
+                </div>
+
+                <div class="w-full max-w-sm rounded-2xl border border-zinc-800/80 bg-zinc-900/50 p-6 shadow-xl">
+                    <div class="mb-4 flex items-center justify-between">
+                        <p class="text-xs font-bold uppercase tracking-wider text-zinc-500">Info Produk</p>
+                        <span class="rounded-lg bg-zinc-800 px-2.5 py-1 text-xs text-zinc-400">
+                            ID: <span class="font-semibold text-zinc-100" th:text="${product.id}">1</span>
+                        </span>
+                    </div>
+                    <dl class="space-y-3 text-sm">
+                        <div class="flex items-center justify-between border-b border-zinc-800/80 pb-3">
+                            <dt class="text-zinc-500">Nama</dt>
+                            <dd class="font-medium text-zinc-100" th:text="${product.name}">Nama</dd>
+                        </div>
+                        <div class="flex items-center justify-between border-b border-zinc-800/80 pb-3">
+                            <dt class="text-zinc-500">Kategori</dt>
+                            <dd class="font-medium text-zinc-100" th:text="${product.category}">Kategori</dd>
+                        </div>
+                        <div class="flex items-center justify-between border-b border-zinc-800/80 pb-3">
+                            <dt class="text-zinc-500">Harga</dt>
+                            <dd class="font-bold text-rose-300"
+                                th:text="'Rp ' + ${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT')}">Rp 0</dd>
+                        </div>
+                        <div class="flex items-center justify-between pt-2">
+                            <dt class="text-zinc-500">Stok</dt>
+                            <dd class="flex items-center gap-2">
+                                <span class="text-zinc-100" th:text="${product.stock}">0</span>
+                                <span th:if="${product.stock < 20}" class="rounded-lg bg-red-500/20 px-2 py-0.5 text-xs font-semibold text-red-300">Stok Menipis</span>
+                                <span th:if="${product.stock >= 20}" class="rounded-lg bg-teal-500/20 px-2 py-0.5 text-xs font-semibold text-teal-300">Tersedia</span>
+                            </dd>
+                        </div>
+                    </dl>
+                </div>
+            </div>
+        </div>
+
+        <div th:if="${product == null}" class="rounded-2xl border border-red-500/40 bg-red-500/10 px-6 py-5 text-sm text-red-100">
+            <h2 class="text-base font-semibold">Produk Tidak Ditemukan</h2>
+            <p class="mt-1" th:text="${error}">Error message</p>
+        </div>
+
+        <div class="mt-8">
+            <a th:href="@{/products}" class="inline-flex items-center gap-2 rounded-xl border border-zinc-700 bg-zinc-900/80 px-4 py-2.5 text-sm font-medium text-zinc-300 transition hover:border-rose-500/50 hover:bg-zinc-900 hover:text-rose-300">← Kembali ke Daftar Produk</a>
+        </div>
+    </section>
+</main>
+
+<div th:replace="~{fragments/layout :: footer}"></div>
+
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${title}">Statistik</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { primary: { DEFAULT: '#f43f5e' } }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="flex min-h-screen flex-col bg-zinc-950 text-zinc-100">
+
+<div th:replace="~{fragments/layout :: navbar}"></div>
+
+<main class="flex-1">
+    <section class="mx-auto max-w-6xl px-4 py-10">
+        <div class="mb-8">
+            <h1 class="text-3xl font-bold tracking-tight text-zinc-50" th:text="${title}">Statistik</h1>
+            <p class="mt-2 text-sm text-zinc-500">Ringkasan data produk: total, stok rendah, harga rata-rata, dan distribusi kategori.</p>
+        </div>
+
+        <div class="grid gap-6 md:grid-cols-2">
+            <div class="rounded-2xl border border-zinc-800/80 bg-zinc-900/50 p-6 shadow-xl">
+                <h2 class="text-xs font-bold uppercase tracking-wider text-zinc-500">Ringkasan</h2>
+                <dl class="mt-5 space-y-4">
+                    <div class="flex items-center justify-between rounded-lg bg-zinc-950/60 px-4 py-3">
+                        <dt class="text-sm text-zinc-400">Total Produk</dt>
+                        <dd class="text-lg font-bold text-rose-300" th:text="${totalProducts}">0</dd>
+                    </div>
+                    <div class="flex items-center justify-between rounded-lg bg-zinc-950/60 px-4 py-3">
+                        <dt class="text-sm text-zinc-400">Produk Stok Rendah (&lt;20)</dt>
+                        <dd class="text-lg font-bold text-red-400" th:text="${lowStockCount}">0</dd>
+                    </div>
+                    <div class="flex items-center justify-between rounded-lg bg-zinc-950/60 px-4 py-3">
+                        <dt class="text-sm text-zinc-400">Rata-rata Harga</dt>
+                        <dd class="text-lg font-bold text-teal-300" th:text="'Rp ' + ${#numbers.formatDecimal(averagePrice, 0, 'COMMA', 0, 'POINT')}">Rp 0</dd>
+                    </div>
+                </dl>
+            </div>
+
+            <div class="space-y-6">
+                <div class="rounded-2xl border border-zinc-800/80 bg-zinc-900/50 p-5 shadow-lg">
+                    <h2 class="text-xs font-bold uppercase tracking-wider text-zinc-500">Produk Termahal</h2>
+                    <div class="mt-4 text-sm" th:if="${mostExpensive != null}">
+                        <p class="font-semibold text-zinc-100" th:text="${mostExpensive.name}">-</p>
+                        <p class="mt-1 text-rose-300" th:text="'Rp ' + ${#numbers.formatDecimal(mostExpensive.price, 0, 'COMMA', 0, 'POINT')}">Rp 0</p>
+                    </div>
+                    <div class="mt-4 text-sm text-zinc-500" th:if="${mostExpensive == null}">-</div>
+                </div>
+
+                <div class="rounded-2xl border border-zinc-800/80 bg-zinc-900/50 p-5 shadow-lg">
+                    <h2 class="text-xs font-bold uppercase tracking-wider text-zinc-500">Produk Termurah</h2>
+                    <div class="mt-4 text-sm" th:if="${cheapest != null}">
+                        <p class="font-semibold text-zinc-100" th:text="${cheapest.name}">-</p>
+                        <p class="mt-1 text-teal-300" th:text="'Rp ' + ${#numbers.formatDecimal(cheapest.price, 0, 'COMMA', 0, 'POINT')}">Rp 0</p>
+                    </div>
+                    <div class="mt-4 text-sm text-zinc-500" th:if="${cheapest == null}">-</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-8 overflow-hidden rounded-2xl border border-zinc-800/80 bg-zinc-900/50 shadow-xl">
+            <div class="border-b border-zinc-800/80 px-6 py-4 text-sm font-semibold text-zinc-200">Produk per Kategori</div>
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-zinc-800/80 text-sm">
+                    <thead class="bg-zinc-950/80">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-zinc-500">Kategori</th>
+                            <th class="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-zinc-500">Jumlah Produk</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-zinc-800/80">
+                        <tr th:each="entry : ${productCountByCategory}" class="transition hover:bg-zinc-800/50">
+                            <td class="whitespace-nowrap px-6 py-4 font-medium text-zinc-100" th:text="${entry.key}">Kategori</td>
+                            <td class="whitespace-nowrap px-6 py-4 text-right text-rose-300" th:text="${entry.value}">0</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="mt-8">
+            <a th:href="@{/}" class="inline-flex items-center gap-2 rounded-xl border border-zinc-700 bg-zinc-900/80 px-4 py-2.5 text-sm font-medium text-zinc-300 transition hover:border-rose-500/50 hover:bg-zinc-900 hover:text-rose-300">← Kembali ke Beranda</a>
+        </div>
+    </section>
+</main>
+
+<div th:replace="~{fragments/layout :: footer}"></div>
+
+</body>
+</html>
